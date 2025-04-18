@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Calculator Microservice</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #333; }
+        .number-type { margin: 15px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .btn { padding: 8px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background: #0056b3; }
+        .response { margin-top: 20px; padding: 15px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 5px; }
+        pre { white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <h1>Average Calculator Microservice</h1>
+    <p>Click on a number type to fetch numbers and calculate average:</p>
+    
+    <% numberTypes.forEach(type => { %>
+        <div class="number-type">
+            <h3><%= type.name %></h3>
+            <button class="btn" onclick="fetchNumbers('<%= type.id %>')">Fetch <%= type.name %></button>
+            <div id="response-<%= type.id %>" class="response" style="display: none;">
+                <h4>Response:</h4>
+                <pre id="response-content-<%= type.id %>"></pre>
+            </div>
+        </div>
+    <% }); %>
+    
+    <script>
+        function fetchNumbers(type) {
+            const responseDiv = document.getElementById(`response-${type}`);
+            const contentDiv = document.getElementById(`response-content-${type}`);
+            
+            responseDiv.style.display = 'none';
+            contentDiv.textContent = 'Loading...';
+            responseDiv.style.display = 'block';
+            
+            fetch(`/numbers/${type}`)
+                .then(response => response.json())
+                .then(data => {
+                    contentDiv.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    contentDiv.textContent = `Error: ${error.message}`;
+                });
+        }
+    </script>
+</body>
+</html>

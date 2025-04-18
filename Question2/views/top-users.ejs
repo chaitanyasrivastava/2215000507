@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Users</title>
+</head>
+<body>
+    <h1>Top Users</h1>
+    <ul>
+        <% users.forEach(user => { %>
+            <li>ID: <%= user.id %>, Name: <%= user.name %></li>
+        <% }); %>
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>

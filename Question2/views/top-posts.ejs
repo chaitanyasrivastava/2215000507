@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 5 Most Commented Posts</title>
+</head>
+<body>
+    <h1>Top 5 Most Commented Posts</h1>
+    <ul>
+        <% posts.forEach(post => { %>
+            <li>ID: <%= post.id %>, Content: <%= post.content %>, Comments: <%= post.commentCount %></li>
+        <% }); %>
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
